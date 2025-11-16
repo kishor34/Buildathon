@@ -1,21 +1,4 @@
-import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai"
-import fs from "fs"
 
-interface OllamaResponse {
-  response: string
-  done: boolean
-}
-
-export class LLMHelper {
-  private model: GenerativeModel | null = null
-  private readonly systemPrompt = `You are Wingman AI, a helpful, proactive assistant for any kind of problem or situation (not just coding). For any user input, analyze the situation, provide a clear problem statement, relevant context, and suggest several possible responses or actions the user could take next. Always explain your reasoning. Present your suggestions as a list of options or next steps.`
-  private useOllama: boolean = false
-  private ollamaModel: string = "llama3.2"
-  private ollamaUrl: string = "http://localhost:11434"
-
-  constructor(apiKey?: string, useOllama: boolean = false, ollamaModel?: string, ollamaUrl?: string) {
-    this.useOllama = useOllama
-    
     if (useOllama) {
       this.ollamaUrl = ollamaUrl || "http://localhost:11434"
       this.ollamaModel = ollamaModel || "gemma:latest" // Default fallback
@@ -203,7 +186,16 @@ export class LLMHelper {
           mimeType: "audio/mp3"
         }
       };
-      const prompt = `${this.systemPrompt}\n\nDescribe this audio clip in a short, concise answer. In addition to your main answer, suggest several possible actions or responses the user could take next based on the audio. Do not return a structured JSON object, just answer naturally as you would to a user.`;
+      const prompt = `${this.systemPrompt}
+
+You are an expert AI interview assistant.
+Listen carefully to the following audio recording.
+Understand the user's spoken question or topic.
+Then, provide a clear and concise **paragraph answer only** — as if explaining to an interviewer.
+Do not include any introductions, greetings, bullet points, formatting symbols, or JSON structures.
+Your output must be a single paragraph containing only the explanation — nothing else.
+
+`;
       const result = await this.model.generateContent([prompt, audioPart]);
       const response = await result.response;
       const text = response.text();
@@ -222,7 +214,16 @@ export class LLMHelper {
           mimeType
         }
       };
-      const prompt = `${this.systemPrompt}\n\nDescribe this audio clip in a short, concise answer. In addition to your main answer, suggest several possible actions or responses the user could take next based on the audio. Do not return a structured JSON object, just answer naturally as you would to a user and be concise.`;
+      const prompt = `${this.systemPrompt}
+
+You are an expert AI interview assistant.
+Listen carefully to the following audio recording.
+Understand the user's spoken question or topic.
+Then, provide a clear and concise **paragraph answer only** — as if explaining to an interviewer.
+Do not include any introductions, greetings, bullet points, formatting symbols, or JSON structures.
+Your output must be a single paragraph containing only the explanation — nothing else.
+
+`;
       const result = await this.model.generateContent([prompt, audioPart]);
       const response = await result.response;
       const text = response.text();

@@ -246,8 +246,8 @@ const QueueCommands: React.FC<QueueCommandsProps> = ({
       </div>
       {/* Audio Result Display */}
       {audioResult && (
-        <div className="mt-2 p-2 bg-white/10 rounded text-white text-xs max-w-md">
-          <span className="font-semibold">Audio Result:</span> {audioResult}
+        <div className="mt-2 p-2 bg-white/10 rounded text-blue-300 text-xs max-w-md">
+          <span className="font-semibold text-white/90">Audio Result:</span> {audioResult}
         </div>
       )}
       {/* Chat Dialog Overlay */}
