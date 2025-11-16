@@ -1,267 +1,247 @@
-# Cluely
+AI-Powered Local Language Health Advisor
 
-[Cluely](https://cluely.com) - The invisible desktop assistant that provides real-time insights, answers, and support during meetings, interviews, presentations, and professional conversations.
+A smart, cross-platform desktop assistant that helps users understand symptoms, medical terms, prescriptions, and health-related content — in their local languages like Hindi, Marathi, Tamil, Telugu, and English.
 
-## Sponsored by Recall AI - API for desktop recording
-If you’re looking for a hosted desktop recording API, consider checking out [Recall.ai](https://www.recall.ai/product/desktop-recording-sdk?utm_source=github&utm_medium=sponsorship&utm_campaign=prat011-free-cluely), an API that records Zoom, Google Meet, Microsoft Teams, in-person meetings, and more.
+This tool works by analyzing text, screenshots, audio, and contextual chat, providing clear explanations, possible conditions (not diagnosis), and helpful insights.
 
-## 🚀 Quick Start Guide
+The app supports both local/offline AI (Ollama) and online cloud AI (Google Gemini).
 
-### Prerequisites
-- Make sure you have Node.js installed on your computer
-- Git installed on your computer  
-- **Either** a Gemini API key (get it from [Google AI Studio](https://makersuite.google.com/app/apikey))
-- **Or** Ollama installed locally for private LLM usage (recommended for privacy)
+🚀 Quick Start Guide
+Prerequisites
 
-### Installation Steps
+Node.js installed
 
-1. Clone the repository:
-```bash
+Git installed
+
+Choose ONE AI provider:
+
+Google Gemini API (online, fast, accurate)
+
+Ollama (offline, privacy-focused, recommended)
+
+📥 Installation
+1. Clone the repository
 git clone [repository-url]
 cd free-cluely
-```
 
-2. Install dependencies:
-```bash
-# If you encounter Sharp/Python build errors, use this:
+2. Install dependencies
+
+If you face Sharp/Python build errors:
+
 SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install --ignore-scripts
 npm rebuild sharp
 
-# Or for normal installation:
+
+Or normal installation:
+
 npm install
-```
 
-3. Set up environment variables:
-   - Create a file named `.env` in the root folder
-   
-   **For Gemini (Cloud AI):**
-   ```env
-   GEMINI_API_KEY=your_api_key_here
-   ```
-   
-   **For Ollama (Local/Private AI):**
-   ```env
-   USE_OLLAMA=true
-   OLLAMA_MODEL=llama3.2
-   OLLAMA_URL=http://localhost:11434
-   ```
-   
-   - Save the file
+🔧 Environment Setup
 
-### Running the App
+Create a .env file in the project root.
 
-#### Method 1: Development Mode (Recommended for first run)
-1. Start the development server:
-```bash
+Option A — Use Gemini
+GEMINI_API_KEY=your_api_key_here
+
+Option B — Use Ollama (Offline)
+USE_OLLAMA=true
+OLLAMA_MODEL=llama3.2
+OLLAMA_URL=http://localhost:11434
+
+
+Make sure Ollama is installed and running if you choose this option.
+
+▶️ Running the Application
+Development Mode (recommended first run)
 npm start
-```
 
-This command automatically:
-- Starts the Vite dev server on port 5180
-- Waits for the server to be ready
-- Launches the Electron app
 
-#### Method 2: Production Build
-```bash
+This auto-starts:
+
+Vite server (port 5180)
+
+Electron app
+
+Production Build
 npm run dist
-```
-The built app will be in the `release` folder.
 
-## 🤖 AI Provider Options
 
-### Ollama (Recommended for Privacy)
-**Pros:**
-- 100% private - data never leaves your computer
-- No API costs
-- Works offline
-- Supports many models: llama3.2, codellama, mistral, etc.
+Output will be in the release/ folder.
 
-**Setup:**
-1. Install Ollama from [ollama.ai](https://ollama.ai)
-2. Pull a model: `ollama pull llama3.2`
-3. Set environment variables as shown above
+🤖 AI Provider Options
+Ollama (Offline & Private — Recommended)
 
-### Google Gemini
-**Pros:**
-- Latest AI technology
-- Fastest responses
-- Best accuracy for complex tasks
+100% local processing
 
-**Cons:**
-- Requires API key and internet
-- Data sent to Google servers
-- Usage costs apply
+Works without internet
 
-### ⚠️ Important Notes
+Supports models like:
 
-1. **Closing the App**: 
-   - Press `Cmd + Q` (Mac) or `Ctrl + Q` (Windows/Linux) to quit
-   - Or use Activity Monitor/Task Manager to close `Interview Coder`
-   - The X button currently doesn't work (known issue)
+llama3.2
 
-2. **If the app doesn't start**:
-   - Make sure no other app is using port 5180
-   - Try killing existing processes:
-     ```bash
-     # Find processes using port 5180
-     lsof -i :5180
-     # Kill them (replace [PID] with the process ID)
-     kill [PID]
-     ```
-   - For Ollama users: Make sure Ollama is running (`ollama serve`)
+mistral
 
-3. **Keyboard Shortcuts**:
-   - `Cmd/Ctrl + B`: Toggle window visibility
-   - `Cmd/Ctrl + H`: Take screenshot
-   - 'Cmd/Enter': Get solution
-   - `Cmd/Ctrl + Arrow Keys`: Move window
+codellama
 
-## 🔧 Troubleshooting
+No API cost
 
-### Windows Issues Fixed 
-- **UI not loading**: Port mismatch resolved
-- **Electron crashes**: Improved error handling  
-- **Build failures**: Production config updated
-- **Window focus problems**: Platform-specific fixes applied
+Setup:
 
-### Ubuntu/Linux Issues Fixed 
-- **Window interaction**: Fixed focusable settings
-- **Installation confusion**: Clear setup instructions
-- **Missing dependencies**: All requirements documented
+ollama pull llama3.2
+ollama serve
 
-### Common Solutions
+Google Gemini (Cloud)
 
-#### Sharp/Python Build Errors
-If you see `gyp ERR! find Python` or Sharp build errors:
-```bash
-# Solution 1: Use prebuilt binaries
+Most accurate
+
+Best reasoning
+
+Fast
+
+Costs depend on usage
+
+Get API key from Google AI Studio.
+
+⚠️ Important Notes
+Quitting the App
+
+Windows/Linux: Ctrl + Q
+
+macOS: Cmd + Q
+
+(X button known issue)
+
+Port Issues
+
+If 5180 is busy:
+
+lsof -i :5180
+kill [PID]
+
+Common Build Fix
 rm -rf node_modules package-lock.json
-SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install --ignore-scripts
-npm rebuild sharp
+npm install
 
-# Solution 2: Or install Python (if you prefer building from source)
-brew install python3  # macOS
-# Then run: npm install
-```
+✨ Key Features (Health-Focused)
+🩺 1. Symptom & Health Query Understanding
 
-#### General Installation Issues
-If you see other errors:
-1. Delete the `node_modules` folder
-2. Delete `package-lock.json` 
-3. Run `npm install` again
-4. Try running with `npm start`
+Ask questions in local languages — Hindi, Marathi, Telugu, Tamil, English:
 
-### Platform-Specific Notes
-- **Windows**: App now works on Windows 10/11
-- **Ubuntu/Linux**: Tested on Ubuntu 20.04+ and most Linux distros  
-- **macOS**: Native support with proper window management
+“मुझे चक्कर क्यों आ रहे हैं?”
 
-## Key Features
+“గొంతు నొప్పి కి కారణాలు ఏవి?”
 
-### **Invisible AI Assistant**
-- Translucent, always-on-top window that's barely noticeable
-- Hide/show instantly with global hotkeys
-- Works seamlessly across all applications
+“Fever 2 days + body pain — what does it mean?”
 
-### **Smart Screenshot Analysis** 
-- Take screenshots of any content with `Cmd/Ctrl + H`
-- AI analyzes images, documents, presentations, or problems
-- Get instant explanations, answers, and solutions
+AI provides:
 
-### **Audio Intelligence**
-- Process audio files and recordings
-- Real-time transcription and analysis
-- Perfect for meeting notes and content review
+Possible conditions (not diagnosis)
 
-### **Contextual Chat**
-- Chat with AI about anything you see on screen
-- Maintains conversation context
-- Ask follow-up questions for deeper insights
+Home-care guidance
 
-### **Privacy-First Design**
-- **Local AI Option**: Use Ollama for 100% private processing
-- **Cloud Option**: Google Gemini for maximum performance
-- Screenshots auto-deleted after processing
-- No data tracking or storage
+Explanation in simple language
 
-### **Cross-Platform Support**
-- **Windows 10/11** - Full support with native performance
-- **Ubuntu/Linux** - Optimized for all major distributions  
-- **macOS** - Native window management and shortcuts
+📸 2. Smart Screenshot Analysis
 
-## Use Cases
+Analyze screenshots of:
 
-### **Academic & Learning**
-```
-✓ Live presentation support during classes
-✓ Quick research during online exams  
-✓ Language translation and explanations
-✓ Math and science problem solving
-```
+Prescriptions
 
-### **Professional Meetings**
-```
-✓ Sales call preparation and objection handling
-✓ Technical interview coaching
-✓ Client presentation support
-✓ Real-time fact-checking and data lookup
-```
+Medical reports
 
-### **Development & Tech**
-```
-✓ Debug error messages instantly
-✓ Code explanation and optimization
-✓ Documentation and API references
-✓ Algorithm and architecture guidance
-```
+Symptoms described in images
 
-## Why Choose Free Cluely?
+Test results
 
-| Feature | Free Cluely | Commercial Alternatives |
-|---------|-------------|------------------------|
-| **Cost** | 100% Free | $29-99/month |
-| **Privacy** | Local AI Option | Cloud-only |
-| **Open Source** | Full transparency | Closed source |
-| **Customization** | Fully customizable | Limited options |
-| **Data Control** | You own your data | Third-party servers |
-| **Offline Mode** | Yes (with Ollama) | No |
+Doctor notes
 
-## Technical Details
+Shortcut: Cmd/Ctrl + H
 
-### **AI Models Supported**
-- **Gemini 2.0 Flash** - Latest Google AI with vision capabilities
-- **Llama 3.2** - Meta's advanced local model via Ollama
-- **CodeLlama** - Specialized coding assistance
-- **Mistral** - Lightweight, fast responses
-- **Custom Models** - Any Ollama-compatible model
+🎧 3. Audio Health Explanation
 
-### **System Requirements**
-```bash
-Minimum:  4GB RAM, Dual-core CPU, 2GB storage
-Recommended: 8GB+ RAM, Quad-core CPU, 5GB+ storage
-Optimal: 16GB+ RAM for local AI models
-```
+Upload audio/speech explaining your symptoms:
 
-## 🤝 Contributing
+Converts to text
 
-This project welcomes contributions! While I have limited time for active maintenance, I'll review and merge quality PRs.
+Analyzes content
 
-**Ways to contribute:**
-- 🐛 Bug fixes and stability improvements
-- ✨ New features and AI model integrations  
-- 📚 Documentation and tutorial improvements
-- 🌍 Translations and internationalization
-- 🎨 UI/UX enhancements
+Gives clear interpretation
 
-For commercial integrations or custom development, reach out on [Twitter](https://x.com/prathitjoshi_)
+💬 4. Contextual Chat
 
-## 📄 License
+Continue asking questions without losing previous context.
 
-ISC License - Free for personal and commercial use.
+🔒 5. Privacy-First Design
 
----
+Offline mode supported using Ollama
 
-**⭐ Star this repo if Free Cluely helps you succeed in meetings, interviews, or presentations!**
+No data stored
 
+Screenshots auto-deleted
+
+No tracking
+
+🌍 Cross-Platform Support
+
+Windows 10/11
+
+macOS
+
+Linux (Ubuntu + others)
+
+🧪 Use Cases
+For Students
+
+✓ Explaining biology/health topics
+✓ Translation of complex health terms
+✓ Interactive learning
+
+For Families
+
+✓ Understanding prescriptions
+✓ Clarifying symptoms
+✓ Health-related guidance in local languages
+
+For Professionals
+
+✓ AI assistance for documentation
+✓ Quick symptom review
+✓ Language support during patient communication
+
+🔧 System Requirements
+
+Minimum:
+
+4GB RAM
+
+Dual-core CPU
+
+Recommended:
+
+8GB+ RAM
+
+Quad-core CPU
+
+Optimal:
+
+16GB RAM (for offline AI models)
+
+🤝 Contributing
+
+You are welcome to contribute:
+
+Bug fixes
+
+New AI model integration
+
+Language improvements
+
+Better health-related responses
+
+UI/UX updates
+
+📄 License
+
+Apache-2.0 — Free for personal & commercial use.
 ### 🏷️ Tags
 `ai-assistant` `meeting-notes` `interview-helper` `presentation-support` `ollama` `gemini-ai` `electron-app` `cross-platform` `privacy-focused` `open-source` `local-ai` `screenshot-analysis` `academic-helper` `sales-assistant` `coding-companion`
